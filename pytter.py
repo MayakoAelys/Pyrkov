@@ -5,16 +5,16 @@ import html
 from markovGenerator import MarkovGenerator
 
 class Twitter:
-    def __init__(self):
+    def __init__(self, consumer_key = "", consumer_secret = "", access_token = "", access_secret = ""):
         # Config
         # TODO: Make a config file
         self.pattern_username = r"(@.*?\s)"
 
         # <user>
-        self.consumer_key    = ""
-        self.consumer_secret = ""
-        self.access_token    = ""
-        self.access_secret   = ""
+        self.consumer_key    = consumer_key
+        self.consumer_secret = consumer_secret
+        self.access_token    = access_token
+        self.access_secret   = access_secret
 
         # Tweepy connection
         self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)

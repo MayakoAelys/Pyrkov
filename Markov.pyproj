@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{c2a0e45e-a0d7-40e5-8141-4dfad345b819}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>pytter.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>

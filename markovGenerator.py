@@ -4,6 +4,7 @@ from random import randrange
 class MarkovGenerator:
     def __init__(self, baseString = ""):
         self.dictionnary = {}
+        self.firstWords = []
 
 
         if(baseString is not ""):
@@ -13,6 +14,10 @@ class MarkovGenerator:
     """Add a string to the dictionnary"""
     def add_sentence(self, baseString):
         splitted = baseString.split()
+
+        # Add the reference of the first word
+        if splitted[0] not in self.firstWords:
+            self.firstWords.append(splitted[0])
 
         # Add words to the dictionnary
         splitSize = len(splitted)
@@ -45,7 +50,8 @@ class MarkovGenerator:
         result = ""
 
         # Get the first word randomly
-        randomKey = self.get_indexed_key(randrange(len(self.dictionnary)))
+        #randomKey = self.get_indexed_key(randrange(len(self.dictionnary)))
+        randomKey = self.firstWords[randrange(len(self.firstWords))]
         currentWord = randomKey
         nextWord = ""
         result += currentWord + " "

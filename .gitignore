@@ -56,3 +56,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# This project
+config.ini
+temp.txt
+notes.txt

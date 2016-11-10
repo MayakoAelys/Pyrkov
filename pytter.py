@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-import tweepy
 import re
 import html
+from twython import Twython
 from markovGenerator import MarkovGenerator
 
 class Twitter:
@@ -16,28 +16,42 @@ class Twitter:
         self.access_token    = access_token
         self.access_secret   = access_secret
 
+        # Twython connection
+        self.twitter = Twython(self.consumer_key, self.consumer_secret, self.access_token, self.access_secret)
+        try:
+            self.twitter.verify_credentials()
+        except:
+            print("Twitter Authorization Error, please verify your keys in the config.ini file")
+            exit()
+
         # Tweepy connection
-        self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
-        self.auth.set_access_token(self.access_token, self.access_secret)
-        self.api = tweepy.API(self.auth)
+        #self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
+        #self.auth.set_access_token(self.access_token, self.access_secret)
+        #self.api = tweepy.API(self.auth)
 
     def get_statuses(self):
         result = []
         sinceId = -1    # We can't retrieve all the statuses in one bunch
 
-        while len(result) < 2000:
-            if sinceId == None:
+        #while len(result) < 2000:
+        for i in range(0, 5):
+            if sinceId == None or sinceId == "":
                 break
 
             if sinceId == -1:
-                statuses = self.api.home_timeline(count=200)
+                statuses = self.twitter.get_home_timeline(count=200, tweet_mode='extended')
+                #statuses = self.twitter.get_home_timeline(count=200)
             else:
-                statuses = self.api.home_timeline(count=200, max_id=sinceId)
+                #statuses = self.twitter.get_home_timeline(count=200, max_id=sinceId)
+                statuses = self.twitter.get_home_timeline(count=200, max_id=sinceId, tweet_mode='extended')
 
             for status in statuses:
-                result.append(self.clean_tweet(status.text))
+                result.append(self.clean_tweet(status["full_text"]))
 
-            sinceId = statuses.max_id
+                if "…" in status["full_text"]:
+                    print("BORDEL")
+
+            sinceId = statuses[len(statuses) - 1]["id"]
 
         return result
 

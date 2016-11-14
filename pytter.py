@@ -8,7 +8,8 @@ class Twitter:
     def __init__(self, consumer_key = "", consumer_secret = "", access_token = "", access_secret = ""):
         # Config
         # TODO: Make a config file
-        self.pattern_username = r"(@.*?\s)"
+        #self.pattern_username = r"(@.*?\s)"
+        self.pattern_username = r"(\.?@.*?\s)"
 
         # <user>
         self.consumer_key    = consumer_key
@@ -21,6 +22,7 @@ class Twitter:
         self.auth.set_access_token(self.access_token, self.access_secret)
         self.api = tweepy.API(self.auth)
 
+
     def get_statuses(self):
         result = []
         sinceId = -1    # We can't retrieve all the statuses in one bunch
@@ -30,16 +32,25 @@ class Twitter:
                 break
 
             if sinceId == -1:
-                statuses = self.api.home_timeline(count=200)
+                statuses = self.api.home_timeline(count=200, tweet_mode="extended")
             else:
-                statuses = self.api.home_timeline(count=200, max_id=sinceId)
+                statuses = self.api.home_timeline(count=200, max_id=sinceId, tweet_mode="extended")
 
             for status in statuses:
-                result.append(self.clean_tweet(status.text))
+                text = ""
+
+                # If this is a retweet, the fetched tweet may be truncated
+                try:
+                    text = status.retweeted_status.full_text
+                except:
+                    text = status.full_text
+
+                result.append(self.clean_tweet(text))
 
             sinceId = statuses.max_id
 
         return result
+
 
     def clean_tweet(self, tweet):
         # Escape HTML tags

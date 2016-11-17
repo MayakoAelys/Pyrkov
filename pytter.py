@@ -92,6 +92,9 @@ class Twitter:
 
         return tweet
 
+    def post_tweet(self, tweet):
+        self.api.update_status(tweet)
+
 if __name__ == '__main__':
     print("Please execute main.py")
     exit()

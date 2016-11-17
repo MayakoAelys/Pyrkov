@@ -1,11 +1,15 @@
 # -*- coding:utf-8 -*-
 import configparser
+import os
 from pytter import Twitter
 from markovGenerator import MarkovGenerator
 
 CONFIG_FILE = "config.ini"
 
 if __name__ == '__main__':
+    scriptdir =  os.path.dirname(os.path.abspath(__file__))
+    os.chdir(scriptdir)
+
     config = configparser.ConfigParser()
 
     if not config.read(CONFIG_FILE):

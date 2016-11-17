@@ -24,16 +24,32 @@ if __name__ == '__main__':
         exit()
 
     twitter = Twitter(config["auth"]["consumer_key"], config["auth"]["consumer_secret"], config["auth"]["access_token"], config["auth"]["access_secret"])
-    markov = MarkovGenerator()
-    file = open("temp.txt", "w", encoding="utf-8")
 
-    timeline = twitter.get_statuses()
+    if twitter.get_remaining_requests() > 0:
+        markov = MarkovGenerator()
 
-    for status in timeline:
-        markov.add_sentence(status)
+        timeline = twitter.get_statuses()
 
-    for i in range(0, 200):
-        value = markov.generate_sentence(140)
-        file.writelines(value + "\n")
+        # [DEBUG PURPOSE] Write original tweets in a file
+        file = open("temp_tweets.txt", "w", encoding="utf-8")
 
-    file.close()
+        for tweet in twitter.tweets:
+            file.writelines("\n[" + tweet + "]\n")
+
+        file.close()
+
+        # Write generated sentences in a file
+        file = open("temp.txt", "w", encoding="utf-8")
+
+
+        for status in timeline:
+            markov.add_sentence(status)
+
+        for i in range(0, 200):
+            value = markov.generate_sentence(140)
+            file.writelines(value + "\n")
+
+        file.close()
+
+    else:
+        print("API Rate Exceeded")

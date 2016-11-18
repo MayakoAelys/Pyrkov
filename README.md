@@ -7,6 +7,7 @@ Pyrkov uses Twitter's REST API 1.1 and has been made to be executed in a CRON ta
 # Prerequisites
 - Python 3 (tested with Python 3.4)
 - Tweepy (installation explained below)
+
 # Installation guide
 ## Create a Twitter app
 Pyrkov, and every application that uses Twitter API, requires some access keys. To get these keys, you have to create an application on your Twitter account and ask Twitter for your keys. Here is how you do it.

@@ -21,7 +21,10 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="config_template.ini" />
     <Content Include="notes.txt" />
+    <Content Include="README.md" />
     <Content Include="texte.txt" />
   </ItemGroup>
   <ItemGroup>

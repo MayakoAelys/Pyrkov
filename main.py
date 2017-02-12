@@ -21,7 +21,8 @@ if __name__ == '__main__':
         }
 
         config["preferences"] = {
-            "local": True
+            "local": True,
+            "forceLastWord": True
         }
 
         with open(CONFIG_FILE, "w") as configFile:
@@ -38,26 +39,24 @@ if __name__ == '__main__':
         timeline = twitter.get_statuses()
 
         for status in timeline:
-                markov.add_sentence(status)
+            markov.add_sentence(status)
 
         # Post tweet or just write generated sentences in a file?
         if config["preferences"]["local"].lower() == "false":
-            twitter.post_tweet(markov.generate_sentence(140))
+            twitter.post_tweet(markov.generate_sentence(140, config["preferences"]["forceLastWord"].lower() == "true"))
             print("Tweet posted!")
         else:
             # [DEBUG PURPOSE] Write original tweets in a file
-            file = open("temp_tweets.txt", "w", encoding="utf-8")
-
-            for tweet in twitter.tweets:
-                file.writelines("\n[" + tweet + "]\n")
-
-            file.close()
+            #file = open("temp_tweets.txt", "w", encoding="utf-8")
+            #for tweet in twitter.tweets:
+            #    file.writelines("\n[" + tweet + "]\n")
+            #file.close()
 
             # Write generated sentences in a file
             file = open("temp.txt", "w", encoding="utf-8")
 
             for i in range(0, 200):
-                value = markov.generate_sentence(140)
+                value = markov.generate_sentence(140, config["preferences"]["forceLastWord"].lower() == "true")
                 file.writelines(value + "\n")
 
             file.close()

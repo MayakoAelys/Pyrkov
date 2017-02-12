@@ -25,7 +25,6 @@
     <Content Include="config_template.ini" />
     <Content Include="notes.txt" />
     <Content Include="README.md" />
-    <Content Include="texte.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="main.py">

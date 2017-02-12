@@ -113,6 +113,7 @@ All these key are required and available in your Twitter Application on https://
 
 ## [preferences]
 - **local**: If its set to *True*, the generated tweet will be posted on your account once it's created. Otherwise, Pyrkov will create a *temp.txt* containing 100 generated tweet.
+- **forceLastWord**: If its set to *True*, the last word of the generated tweet will be a last word from a real tweet.
 
 # Side notes
 

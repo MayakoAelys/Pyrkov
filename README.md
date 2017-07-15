@@ -103,6 +103,15 @@ I set up my crontab to execute Pyrkov every 30 minutes and to write a new log at
 */30 * * * *    lyyn    python3 /home/lyyn/Pyrkov/main.py > /home/lyyn/Pyrkov/crontab.log
 ```
 
+### 3. Update Pyrkov
+
+Just do a *git pull* in the Pyrkov directory to get the latest version of the code (check that you're on the master branch not the develop one)
+```bash
+git pull
+```
+
+***Note:** Don't forget to compare config_template.ini and config.ini as it can change at any time, offering more customization.*
+
 # config.ini structure
 ## [auth]
 All these key are required and available in your Twitter Application on https://apps.twitter.com

@@ -61,3 +61,6 @@ target/
 config.ini
 temp.txt
 notes.txt
+UpgradeLog\.htm
+
+\.vs/

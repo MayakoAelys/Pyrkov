@@ -61,22 +61,31 @@ class MarkovGenerator:
             nextWord = ""
             result += currentWord + " "
 
+            # Generating the new sentence
             while True:
+                # Are we exceeding the character limit?
+                if maxChar != 0 and len(result.strip()) >= maxChar:
+                    result = ""
+                    break
+
                 nextWord = self.dictionary[currentWord][randrange(len(self.dictionary[currentWord]))]
 
-                if nextWord == "" or (maxChar != 0 and len(result.strip()) + len(nextWord) > maxChar):
+                # Do we met the ending conditions? (either no more word or exceeding the char limit)
+                if nextWord == "" or (maxChar != 0 and (len(result.strip()) + len(nextWord)) >= maxChar):
                     # Check if the last word is in the dictionary of the last word
                     tmp = result.split()
 
                     # if forceLastWord == true: Loop until the last word of the generated sentence is
                     #    in the dictionary of the last words (self.lastWords)
-                    if forceLastWord and tmp[len(tmp)-1].lower() in (word.lower() for word in self.lastWords):
+                    # if not, just return the generated sentence
+                    if (forceLastWord and tmp[-1].lower() in (word.lower() for word in self.lastWords)) or not forceLastWord:
                         return result.strip()
-
-                    # else: retry to do an other sentence
+                    else:
+                        break
 
                 result += nextWord + " "
                 currentWord = nextWord
+
 
 
     def get_indexed_key(self, index):

@@ -55,9 +55,10 @@ if __name__ == '__main__':
             # Write generated sentences in a file
             file = open("temp.txt", "w", encoding="utf-8")
 
-            for i in range(0, 200):
+            for i in range(0, 1000):
                 value = markov.generate_sentence(140, config["preferences"]["forceLastWord"].lower() == "true")
-                file.writelines(value + "\n")
+                if len(value) > 140 : print("Character limit exceeded (>140), len(tweet) = " + str(len(value)))
+                file.writelines(value + " (" + str(len(value)) + ")\n")
 
             file.close()
             print("Tweets generated in temp.txt file")

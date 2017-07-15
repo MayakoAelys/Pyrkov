@@ -8,7 +8,7 @@ class Twitter:
     def __init__(self, consumer_key = "", consumer_secret = "", access_token = "", access_secret = ""):
         # Config
         # TODO: Make a config file
-        self.pattern_username = r"(\.?@[a-zA-Z0-9_]{1,15})" # https://support.twitter.com/articles/20065832#error
+        self.pattern_username = r"(\.?@[a-zA-Z0-9_ ]{1,15})" # https://support.twitter.com/articles/20065832#error
 
         # <user>
         self.consumer_key    = consumer_key

@@ -1,3 +1,5 @@
+**Pyrkov has been forked to [SharpKov](https://github.com/MayakoLyyn/Sharpkov) and will not be updated anymore**
+
 # Pyrkov
 
 Generate new tweets based on old ones using a custom Markov Chains implementation.
